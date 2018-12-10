@@ -1,6 +1,5 @@
 http {
-    real_ip_header X-Forwarded-For;
-    limit_req_zone $binary_remote_addr zone=test:10m rate=5r/s;
+    limit_req_zone $http_x_forwarded_for zone=test:10m rate=5r/s;
 	include       mime.types;
 	default_type  application/octet-stream;
 
