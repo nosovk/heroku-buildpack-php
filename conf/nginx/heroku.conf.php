@@ -1,5 +1,5 @@
 http {
-    limit_req_zone $http_x_forwarded_for zone=test:16m rate=5r/s;
+    limit_req_zone $http_cf_connecting_ip zone=test:16m rate=5r/s;
 	include       mime.types;
 	default_type  application/octet-stream;
 
@@ -20,10 +20,6 @@ http {
 	server_tokens off;
 
 	fastcgi_buffers 256 4k;
-
-	add_header X-debug-enabled "true" always;
-	add_header X-debug-message $http_x_forwarded_for always;
-	add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
 
 	# define an easy to reference name that can be used in fastgi_pass
 	upstream heroku-fcgi {
