@@ -21,6 +21,10 @@ http {
 
 	fastcgi_buffers 256 4k;
 
+	add_header X-debug-enabled "true" always;
+	add_header X-debug-message $http_x_forwarded_for always;
+	add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
+
 	# define an easy to reference name that can be used in fastgi_pass
 	upstream heroku-fcgi {
 		#server 127.0.0.1:4999 max_fails=3 fail_timeout=3s;
@@ -68,9 +72,6 @@ http {
 
 		# default handling of .php
 		location ~ \.php {
-			add_header X-debug-enabled "true" always;
-			add_header X-debug-message $http_x_forwarded_for always;
-                        add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
 			try_files @heroku-fcgi @heroku-fcgi;
 		}
 	}
