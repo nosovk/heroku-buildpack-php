@@ -68,6 +68,7 @@ http {
 
 		# default handling of .php
 		location ~ \.php {
+			add_header X-debug-message $http_x_forwarded_for always;
 			try_files @heroku-fcgi @heroku-fcgi;
 		}
 	}
