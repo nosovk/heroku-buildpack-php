@@ -1,5 +1,5 @@
 http {
-    limit_req_zone $realip_remote_addr zone=test:10m rate=5r/s;
+    limit_req_zone $http_x_forwarded_for zone=test:16m rate=5r/s;
 	include       mime.types;
 	default_type  application/octet-stream;
 
@@ -29,8 +29,6 @@ http {
 	}
 
 	server {
-        real_ip_header    X-Forwarded-For;
-        real_ip_recursive on;
 		# define an easy to reference name that can be used in try_files
 		location @heroku-fcgi {
 			include fastcgi_params;
