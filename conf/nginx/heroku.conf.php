@@ -25,6 +25,10 @@ http {
 	# Depending on your set-up you set more restrictive trusted proxies:
 	set_real_ip_from 0.0.0.0/0;
 
+	add_header X-debug-enabled "true" always;
+	add_header X-debug-message $http_x_forwarded_for always;
+	add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
+
 
 	# define an easy to reference name that can be used in fastgi_pass
 	upstream heroku-fcgi {
