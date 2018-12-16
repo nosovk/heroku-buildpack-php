@@ -1,5 +1,5 @@
 http {
-    limit_req_zone $http_cf_connecting_ip zone=test:16m rate=5r/s;
+    l   imit_req_zone $http_cf_connecting_ip zone=phpapi:16m rate=5r/s;
 	include       mime.types;
 	default_type  application/octet-stream;
 
@@ -77,6 +77,7 @@ http {
 
 		# default handling of .php
 		location ~ \.php {
+                        limit_req       zone=phpapi  burst=3 nodelay;
 			try_files @heroku-fcgi @heroku-fcgi;
 		}
 	}
