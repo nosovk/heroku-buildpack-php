@@ -31,6 +31,8 @@ http {
 	add_header X-debug-message $http_x_forwarded_for always;
 	add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
 
+  ## Block spammers and other unwanted visitors  ##
+  include blockips.conf;
 
 	# define an easy to reference name that can be used in fastgi_pass
 	upstream heroku-fcgi {
