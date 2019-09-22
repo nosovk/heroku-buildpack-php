@@ -1,5 +1,11 @@
 http {
-        limit_req_zone $http_cf_connecting_ip zone=phpapi:16m rate=5r/s;
+        map $request_method $limit
+               default         $binary_remote_addr;
+               OPTIONS          "";
+        }
+
+
+        limit_req_zone $limit zone=phpapi:16m rate=5r/s;
         limit_req_status 429;
 
 	include       mime.types;
