@@ -5,7 +5,7 @@ http {
         }
 
 
-        limit_req_zone $limit zone=phpapi:16m rate=5r/s;
+        limit_req_zone $http_cf_connecting_ip zone=phpapi:16m rate=5r/s;
         limit_req_status 429;
 
 	include       mime.types;
@@ -36,6 +36,7 @@ http {
 	add_header X-debug-enabled "true" always;
 	add_header X-debug-message $http_x_forwarded_for always;
 	add_header X-debug-message-cloudflare $http_cf_connecting_ip always;
+        add_header X-debug-message-limit $limit always;
 
 	# define an easy to reference name that can be used in fastgi_pass
 	upstream heroku-fcgi {
