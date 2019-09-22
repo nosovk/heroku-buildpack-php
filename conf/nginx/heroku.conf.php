@@ -1,6 +1,6 @@
 http {
         map $request_method $limit
-               default         $binary_remote_addr;
+               default         $http_cf_connecting_ip;
                OPTIONS          "";
         }
 
